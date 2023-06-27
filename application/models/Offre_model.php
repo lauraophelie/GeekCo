@@ -65,7 +65,7 @@
                 'idtypeoffre' => $idType
             );
             
-            //$this->db->insert('offre', $data);
+            $this->db->insert('offre', $data);
         }
 
         public function getAll() {
