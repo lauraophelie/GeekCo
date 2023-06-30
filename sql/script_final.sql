@@ -150,4 +150,25 @@ CREATE TABLE Signalement_User(
     nb INT NOT NULL DEFAULT 1
 );
 
+----------------- Publication -----------------
+
+CREATE TABLE Publication(
+    id VARCHAR(15) PRIMARY KEY,
+    id_user VARCHAR(15) REFERENCES User(id),
+    id_categorie VARCHAR(15) REFERENCES Categorie(id),
+    path_image VARCHAR(50),
+    date_publication TIMESTAMP,
+    texte VARCHAR(150) NOT NULL,
+    nb_reaction INT DEFAULT 0 
+);
+
+CREATE TABLE Commentaire(
+    id VARCHAR(15) PRIMARY KEY,
+    id_publication VARCHAR(15) REFERENCES Publication(id),
+    id_user VARCHAR(15) REFERENCES User(id),
+    texte VARCHAR(150) NOT NULL,
+    path_image VARCHAR(50),
+    nb_reaction INT DEFAULT 0 
+);
+
 ---------------- Chat & Code -----------------
