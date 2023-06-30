@@ -6,14 +6,14 @@ ALTER DATABASE geeksco OWNER TO geeksco;
 
 \c geeksco geeksco
 
--------------- User ------------------
+-------------- Utilisateur ------------------
 
 CREATE TABLE Profession(
     id VARCHAR(15) PRIMARY KEY,
     designation VARCHAR(30)
 );
 
-CREATE TABLE User(
+CREATE TABLE Utilisateur(
     id VARCHAR(15) PRIMARY KEY,
     nom VARCHAR(40) NOT NULL,
     prenom VARCHAR(40),
@@ -29,8 +29,8 @@ CREATE TABLE Interet(
     designation VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE Interet_user(
-    id_user VARCHAR(15) REFERENCES User(id),
+CREATE TABLE Interet_Utilisateur(
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     id_interet VARCHAR(15) REFERENCES Interet(id)
 );
 
@@ -45,7 +45,7 @@ CREATE TABLE Categorie(
 CREATE TABLE Question(
     id VARCHAR(15) PRIMARY KEY,
     id_categorie VARCHAR(15) REFERENCES Categorie(id),
-    id_user VARCHAR(15) REFERENCES User(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     date_publication TIMESTAMP,
     texte VARCHAR(150) NOT NULL,
     screenshoot VARCHAR(50)
@@ -54,7 +54,7 @@ CREATE TABLE Question(
 CREATE TABLE Reponse(
     id VARCHAR(15) PRIMARY KEY,
     id_question VARCHAR(15) REFERENCES Question(id),
-    id_user VARCHAR(15) REFERENCES User(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     texte VARCHAR(150) NOT NULL,
     path_image VARCHAR(50),
     nb_reaction INT DEFAULT 0 
@@ -69,7 +69,7 @@ CREATE TABLE Type_Offre(
 
 CREATE TABLE Offre(
     id VARCHAR(15) PRIMARY KEY,
-    id_user VARCHAR(15) REFERENCES User(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     id_categorie VARCHAR(15) REFERENCES Categorie(id),
     id_type VARCHAR(15) REFERENCES Type_Offre(id),
     path_image VARCHAR(50),
@@ -98,7 +98,7 @@ CREATE TABLE Boost_Offre(
 
 CREATE TABLE Abonnement(
     id VARCHAR(15) PRIMARY KEY,
-    id_user VARCHAR(15) REFERENCES User(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     date_payement TIMESTAMP NOT NULL,
     reference VARCHAR(40) NOT NULL,
     mois INT NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE Signaler_Offre(
     id VARCHAR(15) PRIMARY KEY,
     id_motif VARCHAR(15) REFERENCES Motif(id),
     id_offre VARCHAR(15) REFERENCES Offre(id),
-    id_user VARCHAR(15) REFERENCES User(id),        -- ilay manao signalement
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),        -- ilay manao signalement
     date_signalement TIMESTAMP NOT NULL
 );
 
@@ -131,7 +131,7 @@ CREATE TABLE Signaler_Publication(
     id VARCHAR(15) PRIMARY KEY,
     id_motif VARCHAR(15) REFERENCES Motif(id),
     id_publication VARCHAR(15) REFERENCES Publication(id),
-    id_user VARCHAR(15) REFERENCES User(id),        -- ilay manao signalement
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),        -- ilay manao signalement
     date_signalement TIMESTAMP NOT NULL
 );
 
@@ -139,7 +139,7 @@ CREATE TABLE Signaler_Question(
     id VARCHAR(15) PRIMARY KEY,
     id_motif VARCHAR(15) REFERENCES Motif(id),
     id_question VARCHAR(15) REFERENCES Question(id),
-    id_user VARCHAR(15) REFERENCES User(id),        -- ilay manao signalement
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),        -- ilay manao signalement
     date_signalement TIMESTAMP NOT NULL
 );
 
@@ -147,12 +147,12 @@ CREATE TABLE Signaler_Reponse(
     id VARCHAR(15) PRIMARY KEY,
     id_motif VARCHAR(15) REFERENCES Motif(id),
     id_reponse VARCHAR(15) REFERENCES Reponse(id),
-    id_user VARCHAR(15) REFERENCES User(id),        -- ilay manao signalement
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),        -- ilay manao signalement
     date_signalement TIMESTAMP NOT NULL
 );
 
-CREATE TABLE Signalement_User(
-    id_user VARCHAR(15) REFERENCES User(id),        -- ilay olona signalé
+CREATE TABLE Signalement_Utilisateur(
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),        -- ilay olona signalé
     id_type_signalement VARCHAR(15) REFERENCES Type_Signalement(id),
     id_motif VARCHAR(15) REFERENCES  Motif(id),
     nb INT NOT NULL DEFAULT 1
@@ -162,7 +162,7 @@ CREATE TABLE Signalement_User(
 
 CREATE TABLE Publication(
     id VARCHAR(15) PRIMARY KEY,
-    id_user VARCHAR(15) REFERENCES User(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     id_categorie VARCHAR(15) REFERENCES Categorie(id),
     path_image VARCHAR(50),
     date_publication TIMESTAMP,
@@ -173,7 +173,7 @@ CREATE TABLE Publication(
 CREATE TABLE Commentaire(
     id VARCHAR(15) PRIMARY KEY,
     id_publication VARCHAR(15) REFERENCES Publication(id),
-    id_user VARCHAR(15) REFERENCES User(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     texte VARCHAR(150) NOT NULL,
     path_image VARCHAR(50),
     nb_reaction INT DEFAULT 0 
@@ -194,7 +194,7 @@ CREATE TABLE Roles(
 
 CREATE TABLE Membre_Groupe(
     id_groupe VARCHAR(15) REFERENCES Groupe(id),
-    id_user VARCHAR(15) REFERENCES User(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     id_roles VARCHAR(15) REFERENCES Roles(id)
 );
 
@@ -203,12 +203,12 @@ CREATE TABLE Projet(
     id_groupe VARCHAR(15) REFERENCES Groupe(id) NULL,
     nom VARCHAR(20) NOT NULL,
     repertoire_base VARCHAR(40) NOT NULL, 
-    id_user VARCHAR(15) REFERENCES User(id) NOT NULL
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id) NOT NULL
 );
 
 CREATE TABLE Repertoire(
     id VARCHAR(15) PRIMARY KEY,
-    id_projet VARCHAR(15) REFERENCES User(id),
+    id_projet VARCHAR(15) REFERENCES Utilisateur(id),
     id_super REFERENCES Repertoire(id) NULL,
     nom_repertoire VARCHAR(20) NOT NULL,
     chemin VARCHAR(50) NOT NULL
@@ -234,7 +234,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE SEQUENCE user_id_seq START  WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE Utilisateur_id_seq START  WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE profession_id_seq START  WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE interet_id_seq START  WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE categorie_id_seq START  WITH 1 INCREMENT BY 1;
@@ -259,10 +259,10 @@ CREATE SEQUENCE projet_id_seq START  WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE repertoire_id_seq START  WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE code_id_seq START  WITH 1 INCREMENT BY 1;
 
-CREATE TRIGGER user_generate_id_trigger
-BEFORE INSERT ON User
+CREATE TRIGGER Utilisateur_generate_id_trigger
+BEFORE INSERT ON Utilisateur
 FOR EACH ROW
-EXECUTE FUNCTION generate_id('user_','user');
+EXECUTE FUNCTION generate_id('Utilisateur_','Utilisateur');
 
 CREATE TRIGGER profession_generate_id_trigger
 BEFORE INSERT ON Profession
