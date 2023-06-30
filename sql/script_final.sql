@@ -47,7 +47,7 @@ CREATE TABLE Question(
     id_categorie VARCHAR(15) REFERENCES Categorie(id),
     id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     date_publication TIMESTAMP,
-    texte VARCHAR(150) NOT NULL,
+    texte TEXT NOT NULL,
     screenshoot VARCHAR(50)
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE Reponse(
     id VARCHAR(15) PRIMARY KEY,
     id_question VARCHAR(15) REFERENCES Question(id),
     id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
-    texte VARCHAR(150) NOT NULL,
+    texte TEXT NOT NULL,
     path_image VARCHAR(50),
     nb_reaction INT DEFAULT 0 
 );
@@ -75,7 +75,7 @@ CREATE TABLE Offre(
     path_image VARCHAR(50),
     date_publication TIMESTAMP,
     fin_validite TIMESTAMP,
-    texte VARCHAR(150) NOT NULL
+    texte TEXT NOT NULL
 );
 
 CREATE TABLE Boost(
@@ -102,7 +102,7 @@ CREATE TABLE Publication(
     id_categorie VARCHAR(15) REFERENCES Categorie(id),
     path_image VARCHAR(50),
     date_publication TIMESTAMP,
-    texte VARCHAR(150) NOT NULL,
+    texte TEXT NOT NULL,
     nb_reaction INT DEFAULT 0 
 );
 
@@ -110,7 +110,7 @@ CREATE TABLE Commentaire(
     id VARCHAR(15) PRIMARY KEY,
     id_publication VARCHAR(15) REFERENCES Publication(id),
     id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
-    texte VARCHAR(150) NOT NULL,
+    texte TEXT NOT NULL,
     path_image VARCHAR(50),
     nb_reaction INT DEFAULT 0 
 );
@@ -378,9 +378,3 @@ CREATE TRIGGER code_generate_id_trigger
 BEFORE INSERT ON code
 FOR EACH ROW
 EXECUTE FUNCTION generate_id('code_','code');
-
-------------------- mise à jour reponse forum ---------------
-
-ALTER TABLE Reponse ADD COLUMN date_publication TIMESTAMP;
-
--------------------------- fin ----------------------------
