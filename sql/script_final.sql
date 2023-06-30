@@ -379,3 +379,7 @@ CREATE TRIGGER code_generate_id_trigger
 BEFORE INSERT ON code
 FOR EACH ROW
 EXECUTE FUNCTION generate_id('code_','code');
+
+------------------ modification forum ------------------------
+
+ALTER TABLE Reponse ADD COLUMN date_publication TIMESTAMP;
