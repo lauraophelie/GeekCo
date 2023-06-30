@@ -94,6 +94,27 @@ CREATE TABLE Boost_Offre(
     date_fin TIMESTAMP NOT NULL
 );
 
+----------------- Publication -----------------
+
+CREATE TABLE Publication(
+    id VARCHAR(15) PRIMARY KEY,
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
+    id_categorie VARCHAR(15) REFERENCES Categorie(id),
+    path_image VARCHAR(50),
+    date_publication TIMESTAMP,
+    texte VARCHAR(150) NOT NULL,
+    nb_reaction INT DEFAULT 0 
+);
+
+CREATE TABLE Commentaire(
+    id VARCHAR(15) PRIMARY KEY,
+    id_publication VARCHAR(15) REFERENCES Publication(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
+    texte VARCHAR(150) NOT NULL,
+    path_image VARCHAR(50),
+    nb_reaction INT DEFAULT 0 
+);
+
 ----------------------- Abonnement ------------------------
 
 CREATE TABLE Abonnement(
@@ -156,27 +177,6 @@ CREATE TABLE Signalement_Utilisateur(
     id_type_signalement VARCHAR(15) REFERENCES Type_Signalement(id),
     id_motif VARCHAR(15) REFERENCES  Motif(id),
     nb INT NOT NULL DEFAULT 1
-);
-
------------------ Publication -----------------
-
-CREATE TABLE Publication(
-    id VARCHAR(15) PRIMARY KEY,
-    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
-    id_categorie VARCHAR(15) REFERENCES Categorie(id),
-    path_image VARCHAR(50),
-    date_publication TIMESTAMP,
-    texte VARCHAR(150) NOT NULL,
-    nb_reaction INT DEFAULT 0 
-);
-
-CREATE TABLE Commentaire(
-    id VARCHAR(15) PRIMARY KEY,
-    id_publication VARCHAR(15) REFERENCES Publication(id),
-    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
-    texte VARCHAR(150) NOT NULL,
-    path_image VARCHAR(50),
-    nb_reaction INT DEFAULT 0 
 );
 
 ---------------- Chat & Code -----------------
