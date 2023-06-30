@@ -20,6 +20,7 @@ CREATE TABLE Utilisateur(
     date_naissance TIMESTAMP,
     id_profession VARCHAR(15) REFERENCES Profession(id),
     pseudo VARCHAR(12) NOT NULL,
+    path_image VARCHAR(50),
     email VARCHAR(30) UNIQUE NOT NULL,
     mot_de_passe VARCHAR(12) NOT NULL
 );
