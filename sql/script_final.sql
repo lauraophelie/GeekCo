@@ -209,7 +209,7 @@ CREATE TABLE Projet(
 
 CREATE TABLE Repertoire(
     id VARCHAR(15) PRIMARY KEY,
-    id_projet VARCHAR(15) REFERENCES Utilisateur(id),
+    id_projet VARCHAR(15) REFERENCES Projet(id),
     id_super VARCHAR(15) REFERENCES Repertoire(id) NULL,
     nom_repertoire VARCHAR(20) NOT NULL,
     chemin VARCHAR(50) NOT NULL
@@ -383,3 +383,50 @@ EXECUTE FUNCTION generate_id('code_','code');
 ------------------ modification forum ------------------------
 
 ALTER TABLE Reponse ADD COLUMN date_publication TIMESTAMP;
+
+------------------ modification offre ------------------------
+
+CREATE TABLE IF NOT EXISTS Lieu (
+    id VARCHAR(15) PRIMARY KEY,
+    nom_lieu VARCHAR(30) NOT NULL,
+    superficie NUMERIC,
+    nb_population INT
+);
+
+CREATE TRIGGER lieu_generate_id_trigger
+BEFORE INSERT ON lieu
+FOR EACH ROW
+EXECUTE FUNCTION generate_id('lieu_','lieu');
+
+ALTER TABLE Offre ADD COLUMN id_lieu VARCHAR(15) REFERENCES Lieu(id)
+
+------------------- modification utilisateur -------------------------
+
+-- manao publication automatique rehefa manova pdp sy pdc
+-- tsy compte n'ny iray isan'andro ny manova pdp sy pdc
+-- etat: misy hoe encours: 0, temporaire: 1, ... izay hanaovana azy
+CREATE TABLE PDP(
+    id VARCHAR(15) PRIMARY KEY,
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
+    id_publication VARCHAR(15) REFERENCES Publication(id),
+    photo VARCHAR(40) NOT NULL,
+    etat INT NOT NULL
+);
+
+CREATE TABLE PDC(
+    id VARCHAR(15) PRIMARY KEY,
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
+    id_publication VARCHAR(15) REFERENCES Publication(id),
+    photo VARCHAR(40) NOT NULL,
+    etat INT NOT NULL
+);
+
+CREATE TRIGGER pdp_generate_id_trigger
+BEFORE INSERT ON PDP
+FOR EACH ROW
+EXECUTE FUNCTION generate_id('PDP__','pdp');
+
+CREATE TRIGGER pdc_generate_id_trigger
+BEFORE INSERT ON PDC
+FOR EACH ROW
+EXECUTE FUNCTION generate_id('PDC__','pdc');
