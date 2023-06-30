@@ -209,7 +209,7 @@ CREATE TABLE Projet(
 CREATE TABLE Repertoire(
     id VARCHAR(15) PRIMARY KEY,
     id_projet VARCHAR(15) REFERENCES Utilisateur(id),
-    id_super REFERENCES Repertoire(id) NULL,
+    id_super VARCHAR(15) REFERENCES Repertoire(id) NULL,
     nom_repertoire VARCHAR(20) NOT NULL,
     chemin VARCHAR(50) NOT NULL
 );
