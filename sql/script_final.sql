@@ -398,7 +398,7 @@ BEFORE INSERT ON lieu
 FOR EACH ROW
 EXECUTE FUNCTION generate_id('lieu_','lieu');
 
-ALTER TABLE Offre ADD COLUMN id_lieu VARCHAR(15) REFERENCES Lieu(id)
+ALTER TABLE Offre ADD COLUMN id_lieu VARCHAR(15) REFERENCES Lieu(id);
 
 ------------------- modification utilisateur -------------------------
 
