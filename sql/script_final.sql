@@ -440,12 +440,12 @@ CREATE SEQUENCE Reaction_Reponse_id_seq START  WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE Reaction_Question_id_seq START  WITH 1 INCREMENT BY 1;
 
 CREATE TRIGGER question_generate_id_trigger
-BEFORE INSERT ON ReactionQuestion
+BEFORE INSERT ON Reaction_Question
 FOR EACH ROW
 EXECUTE FUNCTION generate_id('R_Quest','question');
 
 CREATE TRIGGER reponse_generate_id_trigger
-BEFORE INSERT ON ReactionReponse
+BEFORE INSERT ON Reaction_Reponse
 FOR EACH ROW
 EXECUTE FUNCTION generate_id('R_Reponse','reponse');
 
