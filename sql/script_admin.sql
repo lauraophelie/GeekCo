@@ -13,7 +13,8 @@ SELECT
     (now() - u.date_naissance) as age,
     u.email,
     u.mot_de_passe,
-    p.designation as profession
+    p.designation as profession,
+    u.date_insertion as date_inscription
 FROM utilisateur u
 JOIN profession AS p ON u.id = p.id;
 
@@ -28,7 +29,8 @@ CREATE OR REPLACE VIEW v_utilisateurs AS(
         (now() - u.date_naissance) as age,
         u.email,
         u.mot_de_passe,
-        p.designation as profession
+        p.designation as profession,
+        u.date_insertion as date_inscription
     FROM utilisateur u
     JOIN profession AS p ON u.id = p.id
 );
