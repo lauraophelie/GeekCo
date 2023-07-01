@@ -413,20 +413,36 @@ CREATE TABLE PDP(
     etat INT NOT NULL
 );
 
-CREATE TABLE PDC(
-    id VARCHAR(15) PRIMARY KEY,
-    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
-    id_publication VARCHAR(15) REFERENCES Publication(id),
-    photo VARCHAR(40) NOT NULL,
-    etat INT NOT NULL
-);
-
 CREATE TRIGGER pdp_generate_id_trigger
 BEFORE INSERT ON PDP
 FOR EACH ROW
 EXECUTE FUNCTION generate_id('PDP__','pdp');
 
-CREATE TRIGGER pdc_generate_id_trigger
-BEFORE INSERT ON PDC
+----------------------- update forum --------------------------------
+
+CREATE TABLE ReactionQuestion(
+    id VARCHAR(15) PRIMARY KEY,
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
+    id_question VARCHAR(15) REFERENCES Question(id),
+    date_creation TIMESTAMP
+);
+
+CREATE TABLE ReactionReponse(
+    id VARCHAR(15) PRIMARY KEY,
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
+    id_question VARCHAR(15) REFERENCES Question(id),
+    date_creation TIMESTAMP
+);
+
+
+CREATE TRIGGER question_generate_id_trigger
+BEFORE INSERT ON ReactionQuestion
 FOR EACH ROW
-EXECUTE FUNCTION generate_id('PDC__','pdc');
+EXECUTE FUNCTION generate_id('R_Quest','question');
+
+CREATE TRIGGER reponse_generate_id_trigger
+BEFORE INSERT ON ReactionReponse
+FOR EACH ROW
+EXECUTE FUNCTION generate_id('R_Reponse','reponse');
+
+------------------------- fin ---------------------------------
