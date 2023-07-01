@@ -413,6 +413,8 @@ CREATE TABLE PDP(
     etat INT NOT NULL
 );
 
+CREATE SEQUENCE PDP_id_seq START  WITH 1 INCREMENT BY 1;
+
 CREATE TRIGGER pdp_generate_id_trigger
 BEFORE INSERT ON PDP
 FOR EACH ROW
@@ -420,20 +422,22 @@ EXECUTE FUNCTION generate_id('PDP__','pdp');
 
 ----------------------- update forum --------------------------------
 
-CREATE TABLE ReactionQuestion(
+CREATE TABLE Reaction_Question(
     id VARCHAR(15) PRIMARY KEY,
     id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     id_question VARCHAR(15) REFERENCES Question(id),
-    date_creation TIMESTAMP
+    date_reaction TIMESTAMP
 );
 
-CREATE TABLE ReactionReponse(
+CREATE TABLE Reaction_Reponse(
     id VARCHAR(15) PRIMARY KEY,
     id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     id_question VARCHAR(15) REFERENCES Question(id),
-    date_creation TIMESTAMP
+    date_reaction TIMESTAMP
 );
 
+CREATE SEQUENCE Reaction_Reponse_id_seq START  WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE Reaction_Question_id_seq START  WITH 1 INCREMENT BY 1;
 
 CREATE TRIGGER question_generate_id_trigger
 BEFORE INSERT ON ReactionQuestion
@@ -445,4 +449,8 @@ BEFORE INSERT ON ReactionReponse
 FOR EACH ROW
 EXECUTE FUNCTION generate_id('R_Reponse','reponse');
 
-------------------------- fin ---------------------------------
+------------------ modification table utilisateur ---------------------
+
+ALTER TABLE Utilisateur ADD COLUMN date_insertion DATE NOT NULL;
+
+--------------------- fin -----------------------------
