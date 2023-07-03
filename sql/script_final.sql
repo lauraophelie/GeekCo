@@ -17,7 +17,7 @@ CREATE TABLE Utilisateur(
     id VARCHAR(15) PRIMARY KEY,
     nom VARCHAR(40) NOT NULL,
     prenom VARCHAR(40),
-    date_naissance TIMESTAMP,
+    date_naissance DATE,
     id_profession VARCHAR(15) REFERENCES Profession(id),
     pseudo VARCHAR(12) NOT NULL,
     path_image VARCHAR(50),
