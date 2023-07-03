@@ -451,6 +451,6 @@ EXECUTE FUNCTION generate_id('R_Reponse','reponse');
 
 ------------------ modification table utilisateur ---------------------
 
-ALTER TABLE Utilisateur ADD COLUMN date_insertion DATE NOT NULL;
+ALTER TABLE Utilisateur ADD COLUMN date_insertion DATE DEFAULT NOW();
 
 --------------------- fin -----------------------------
