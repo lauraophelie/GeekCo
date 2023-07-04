@@ -24,7 +24,7 @@ class Actualite extends CI_Controller
 
     public function addreactiononpublication($idpublication)
     {
-        $iduser = 'UTILI001';
+        $iduser = $this->session->has_userdata('iduser');
         $this->load->model('Actualite_model');
         $this->Actualite_model->addReactionOnPublication($iduser, $idpublication);
         redirect('Actualite/index');

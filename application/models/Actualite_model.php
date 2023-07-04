@@ -66,25 +66,24 @@ class Actualite_model extends CI_Model
 
     public function addReactionOnPublication($idutilisateur, $idpublication)
     {
-        $utilpub = $this->getAllUtilPub();
-        var_dump($utilpub);
-        if (count($utilpub) != 0) {
-            for ($i = 0; $i < count($utilpub); $i++) {
-                if ($utilpub[$i]['id_utilisateur'] != $idutilisateur || $utilpub[$i]['id_publication'] != $idpublication) {
-                    $request = "UPDATE publication SET nb_reaction = nb_reaction + 1 WHERE id = '%s'";
-                    $request2 = "INSERT INTO util_pub VALUES ('%s', '%s')";
+        // Vérification si une réaction existe déjà pour la publication et l'utilisateur spécifiés
+        $sql_check_reaction = "SELECT id FROM util_pub WHERE id_utilisateur = ? AND id_publication = ?";
+        $result_check_reaction = $this->db->query($sql_check_reaction, array($idutilisateur, $idpublication));
 
-                    $this->db->query(sprintf($request, $idpublication));
-                    $this->db->query(sprintf($request2, $idutilisateur, $idpublication));
-                }
-                break;
-            }
-        } else {
-            $request = "UPDATE publication SET nb_reaction = nb_reaction + 1 WHERE id = '%s'";
-            $request2 = "INSERT INTO util_pub VALUES ('%s', '%s')";
+        if ($result_check_reaction->num_rows() === 0) {
+            // Début de la transaction
+            $this->db->trans_start();
 
-            $this->db->query(sprintf($request, $idpublication));
-            $this->db->query(sprintf($request2, $idutilisateur, $idpublication));
+            // Requête pour incrémenter le nombre de réactions dans la table Publication
+            $sql_increment_reaction = "UPDATE publication SET nb_reaction = nb_reaction + 1 WHERE id = ?";
+            $this->db->query($sql_increment_reaction, $idpublication);
+
+            // Requête pour enregistrer la réaction de l'utilisateur dans la table util_pub
+            $sql_insert_reaction = "INSERT INTO util_pub (id_utilisateur, id_publication) VALUES (?, ?)";
+            $this->db->query($sql_insert_reaction, array($idutilisateur, $idpublication));
+
+            // Fin de la transaction
+            $this->db->trans_complete();
         }
     }
 }
