@@ -522,7 +522,7 @@ CREATE OR REPLACE VIEW v_commentaire (
     id_publication,
     nb_reaction
 ) AS(
-    SELECT c.id, u.id, u.pseudo, u.path_image, c.texte, c.id_publication, nb_reaction
+    SELECT c.id, u.id, u.pseudo, u.path_image, c.texte, c.id_publication, c.nb_reaction
     FROM commentaire c
     JOIN utilisateur u ON u.id = c.id_utilisateur
 );
