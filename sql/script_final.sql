@@ -472,7 +472,7 @@ CREATE OR REPLACE VIEW v_offres_dispos (
     JOIN utilisateur u ON u.id = o.id_utilisateur
     JOIN categorie c ON c.id = o.id_categorie
     JOIN type_offre t_o ON t_o.id = o.id_type
-    where o.id_type = 'TYP_O001' AND o.fin_validite > now()          ----------- tokony id an ny offre ao amin ny type offre
+    where o.id_type = 'TYP_O001' AND o.fin_validite < now()          ----------- tokony id an ny offre ao amin ny type offre
 );
 
 CREATE OR REPLACE VIEW v_publicite (
