@@ -453,4 +453,74 @@ EXECUTE FUNCTION generate_id('R_Reponse','reponse');
 
 ALTER TABLE Utilisateur ADD COLUMN date_insertion DATE DEFAULT NOW();
 
+------------------ view pour actualite --------------------------------
+CREATE OR REPLACE VIEW v_offres_dispos (
+    id,
+    idusers,
+    designation,
+    nom,
+    prenom,
+    pseudo,
+    image_users,
+    texte,
+    path_image,
+    date_publication,
+    fin_validite
+) AS (
+    SELECT o.id, u.id, t_o.designation, u.nom, u.prenom, u.pseudo, u.path_image, o.texte, o.path_image, o.date_publication, o.fin_validite
+    FROM offre o
+    JOIN utilisateur u ON u.id = o.id_utilisateur
+    JOIN categorie c ON c.id = o.id_categorie
+    JOIN type_offre t_o ON t_o.id = o.id_type
+    where o.id_type = 'TYP_O001' AND o.fin_validite > now()          ----------- tokony id an ny offre ao amin ny type offre
+);
+
+CREATE OR REPLACE VIEW v_publicite (
+    id,
+    idusers,
+    designation,
+    pseudo,
+    image_users,
+    texte,
+    path_image,
+    date_publication,
+    fin_validite
+) AS(
+    SELECT o.id, u.id, t_o.designation, u.pseudo, u.path_image, o.texte, o.path_image, o.date_publication, o.fin_validite
+    FROM offre o
+    JOIN utilisateur u ON u.id = o.id_utilisateur
+    JOIN categorie c ON c.id = o.id_categorie
+    JOIN type_offre t_o ON t_o.id = o.id_type
+    where id_type = 'TYP_O002'    ------------- tokony id an ny publicite ao amin ny type_offre
+);
+
+CREATE OR REPLACE VIEW v_publication (
+    id,
+    idusers,
+    pseudo,
+    image_users,
+    texte,
+    path_image,
+    date_publication,
+    nb_reaction
+) AS(
+    SELECT p.id, u.id, u.pseudo, u.path_image, p.texte, p.path_image, p.date_publication, p.nb_reaction
+    FROM publication p
+    JOIN utilisateur u ON u.id = p.id_utilisateur
+);
+
+CREATE OR REPLACE VIEW v_commentaire (
+    id,
+    idusers,
+    pseudo,
+    image_users,
+    texte,
+    path_image,
+    id_publication
+) AS(
+    SELECT c.id, u.id, u.pseudo, u.path_image, c.texte, c.path_image, c.id_publication
+    FROM commentaire c
+    JOIN utilisateur u ON u.id = c.id_utilisateur
+);
+
 --------------------- fin -----------------------------
