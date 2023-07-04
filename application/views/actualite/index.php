@@ -81,9 +81,9 @@
                                 <form action="<?php echo base_url('Actualite/addcommentary/' . $actualite[$i]['id']); ?>" method="get"><input class="form-control" type="text" style="width: 100%;height: auto;padding: 6px 2px;margin-bottom: 15px;border: 1px solid #2125295f;border-radius: 7px;" name="commentary"></form>
                             </div>
                         </div>
-                    <?php } else if ($actualite[$i]['designation'] == 'publicite') { ?>
+                    <?php } else if ($actualite[$i]['designation'] == 'Publicite') { ?>
                         <div class="mainbox">
-                            <div style="width: fit-content;height: fit-content;margin: auto;margin-top: -40px;">
+                            <div style="width: 100%;height: fit-content;margin: auto;margin-top: -40px;">
                                 <div style="height: fit-content;display: flex;width: fit-content;margin: 0;padding: 10px;margin-top: 15px;">
                                     <div style="width: 50px;"><img src="<?php echo base_url('assets/img/' . $actualite[$i]['image_users']); ?>" style="width: 100%;border-radius: 72px;"></div>
                                     <div style="width: fit-content;margin-left: 12px;">
