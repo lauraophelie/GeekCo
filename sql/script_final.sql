@@ -112,7 +112,6 @@ CREATE TABLE Commentaire(
     id_publication VARCHAR(15) REFERENCES Publication(id),
     id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
     texte TEXT NOT NULL,
-    path_image VARCHAR(50),
     nb_reaction INT DEFAULT 0 
 );
 
@@ -470,9 +469,8 @@ CREATE OR REPLACE VIEW v_offres_dispos (
     SELECT o.id, u.id, t_o.designation, u.nom, u.prenom, u.pseudo, u.path_image, o.texte, o.path_image, o.date_publication, o.fin_validite
     FROM offre o
     JOIN utilisateur u ON u.id = o.id_utilisateur
-    JOIN categorie c ON c.id = o.id_categorie
     JOIN type_offre t_o ON t_o.id = o.id_type
-    where o.id_type = 'TYP_O001' AND o.fin_validite < now()          ----------- tokony id an ny offre ao amin ny type offre
+    where o.id_type != 'TYP_O002' AND o.fin_validite > now()
 );
 
 CREATE OR REPLACE VIEW v_publicite (
