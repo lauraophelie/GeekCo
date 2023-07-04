@@ -115,6 +115,11 @@ CREATE TABLE Commentaire(
     nb_reaction INT DEFAULT 0 
 );
 
+CREATE TABLE util_pub (
+    id SERIAL PRIMARY KEY,
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
+    id_publication VARCHAR(15) REFERENCES Publication(id)
+);
 ----------------------- Abonnement ------------------------
 
 CREATE TABLE Abonnement(
