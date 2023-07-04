@@ -35,13 +35,13 @@ CREATE TABLE Interet_Utilisateur(
     id_interet VARCHAR(15) REFERENCES Interet(id)
 );
 
------------------ Forum -----------------
-
 CREATE TABLE Categorie(
     id VARCHAR(15) PRIMARY KEY,
     id_interet VARCHAR(15) REFERENCES Interet(id),
     designation VARCHAR(30) NOT NULL
 );
+
+----------------- Forum -----------------
 
 CREATE TABLE Question(
     id VARCHAR(15) PRIMARY KEY,
@@ -206,6 +206,8 @@ CREATE TABLE Projet(
     repertoire_base VARCHAR(40) NOT NULL, 
     id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id) NOT NULL
 );
+
+----------------- Nesorina aloha -----------------
 
 CREATE TABLE Repertoire(
     id VARCHAR(15) PRIMARY KEY,
@@ -432,7 +434,7 @@ CREATE TABLE Reaction_Question(
 CREATE TABLE Reaction_Reponse(
     id VARCHAR(15) PRIMARY KEY,
     id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
-    id_question VARCHAR(15) REFERENCES Question(id),
+    id_reponse VARCHAR(15) REFERENCES Reponse(id),
     date_reaction TIMESTAMP
 );
 
@@ -440,12 +442,12 @@ CREATE SEQUENCE Reaction_Reponse_id_seq START  WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE Reaction_Question_id_seq START  WITH 1 INCREMENT BY 1;
 
 CREATE TRIGGER question_generate_id_trigger
-BEFORE INSERT ON ReactionQuestion
+BEFORE INSERT ON Reaction_Question
 FOR EACH ROW
 EXECUTE FUNCTION generate_id('R_Quest','question');
 
 CREATE TRIGGER reponse_generate_id_trigger
-BEFORE INSERT ON ReactionReponse
+BEFORE INSERT ON Reaction_Reponse
 FOR EACH ROW
 EXECUTE FUNCTION generate_id('R_Reponse','reponse');
 
@@ -453,4 +455,38 @@ EXECUTE FUNCTION generate_id('R_Reponse','reponse');
 
 ALTER TABLE Utilisateur ADD COLUMN date_insertion DATE NOT NULL;
 
+ALTER TABLE Utilisateur ADD COLUMN path_image VARCHAR(50);
+
 --------------------- fin -----------------------------
+
+CREATE OR REPLACE VIEW v_historique as SELECT historique.*, name_event, emplacement,date_event,time_event,short_description from historique join event on historique.idevent = event.idevent;
+
+--------------------- Chat ----------------------------
+
+CREATE TABLE Chat_Projet(
+    id VARCHAR(15) PRIMARY KEY,
+    id_projet VARCHAR(15) REFERENCES Projet(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
+    texte TEXT NOT NULL
+);
+
+CREATE TABLE Chat_Groupe(
+    id VARCHAR(15) PRIMARY KEY,
+    id_groupe VARCHAR(15) REFERENCES Groupe(id),
+    id_utilisateur VARCHAR(15) REFERENCES Utilisateur(id),
+    texte TEXT NOT NULL
+);
+
+CREATE SEQUENCE chat_projet_id_seq START  WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE chat_groupe_id_seq START  WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER Chat_Groupe_generate_id_trigger
+BEFORE INSERT ON Chat_Groupe
+FOR EACH ROW
+EXECUTE FUNCTION generate_id('c_groupe','Utilisateur');
+
+CREATE TRIGGER Chat_Projet_generate_id_trigger
+BEFORE INSERT ON Chat_Projet
+FOR EACH ROW
+EXECUTE FUNCTION generate_id('c_projet','profession');
+
