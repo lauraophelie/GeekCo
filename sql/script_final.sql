@@ -494,7 +494,6 @@ CREATE OR REPLACE VIEW v_publicite (
     SELECT o.id, u.id, t_o.designation, u.pseudo, u.path_image, o.texte, o.path_image, o.date_publication, o.fin_validite
     FROM offre o
     JOIN utilisateur u ON u.id = o.id_utilisateur
-    JOIN categorie c ON c.id = o.id_categorie
     JOIN type_offre t_o ON t_o.id = o.id_type
     where id_type = 'TYP_O002'    ------------- tokony id an ny publicite ao amin ny type_offre
 );
@@ -520,10 +519,9 @@ CREATE OR REPLACE VIEW v_commentaire (
     pseudo,
     image_users,
     texte,
-    path_image,
     id_publication
 ) AS(
-    SELECT c.id, u.id, u.pseudo, u.path_image, c.texte, c.path_image, c.id_publication
+    SELECT c.id, u.id, u.pseudo, u.path_image, c.texte, c.id_publication
     FROM commentaire c
     JOIN utilisateur u ON u.id = c.id_utilisateur
 );
