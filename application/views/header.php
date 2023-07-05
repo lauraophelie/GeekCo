@@ -25,7 +25,9 @@
             <div class="nav-menu">
                 <ul>
                     <li><a href="#">Actualite</a></li>
-                    <li><a href="#">Forum</a></li>
+
+                    <li><a href="<?php site_url("forum") ?>">Forum</a></li>
+
                     <li><a href="#">Projet</a></li>
                     <li><a href="#">Groupe</a></li>
                 </ul>
@@ -38,3 +40,4 @@
                 <div class="toggle"><a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar"><span></span></a></div>
             </div>
         </nav>
+
