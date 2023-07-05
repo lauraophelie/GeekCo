@@ -1,17 +1,3 @@
-CREATE TABLE Utilisateur(
-    id VARCHAR(15) PRIMARY KEY,
-    nom VARCHAR(40) NOT NULL,
-    prenom VARCHAR(40),
-    date_naissance TIMESTAMP,
-    id_profession VARCHAR(15) REFERENCES Profession(id),
-    pseudo VARCHAR(12) NOT NULL,
-    path_image VARCHAR(50),
-    email VARCHAR(30) UNIQUE NOT NULL,
-    mot_de_passe VARCHAR(12) NOT NULL,
-    date_insertion DATE,
-    path_image VARCHAR(50) NOT NULL
-);
-
 create table event(
     idevent serial PRIMARY KEY,
     iduser VARCHAR(15),
