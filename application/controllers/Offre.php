@@ -25,11 +25,13 @@ class Offre extends CI_Controller {
         $this->load->model('Offre_model'); 
         $data['lieux'] = $this->Offre_model->getLieu();
 		$data['types'] = $this->Offre_model->getType();
+		$data['personne']=$this->Login_model->getpersonbyId($_SESSION['iduser']);
+        $this->load->view('header', $data);
         $this->load->view('offre', $data);
     }
 
 	public function saveOffre() { // insertion dans la base
-		$idusers = 1;
+		$idusers = $_SESSION['iduser'];
 		$texte = $this->input->post('offre');
 		$lieu = $this->input->post('lieu');
 		$type = $this->input->post('type');
@@ -39,13 +41,7 @@ class Offre extends CI_Controller {
 		$this->load->model('Offre_model');
 		$this->Offre_model->save($idusers, $texte, $datePublication, $datefin, $lieu, $type);
 
-		redirect('offre/GetAllOffre');
-	}
-
-	public function GetAllOffre() { //afficher tous les offres
-		$this->load->model('Offre_model');
-		$data['offres'] = $this->Offre_model->getAll();
-		$this->load->view('affichage_offre', $data);
+		redirect('Actualite');
 	}
 
 	public function Affichage_UpdateOffre($id) { //afficher la formulaire de modification

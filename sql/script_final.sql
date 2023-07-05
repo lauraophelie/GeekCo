@@ -494,7 +494,6 @@ CREATE OR REPLACE VIEW v_publicite (
     SELECT o.id, u.id, t_o.designation, u.pseudo, u.path_image, o.texte, o.path_image, o.date_publication, o.fin_validite
     FROM offre o
     JOIN utilisateur u ON u.id = o.id_utilisateur
-    JOIN categorie c ON c.id = o.id_categorie
     JOIN type_offre t_o ON t_o.id = o.id_type
     where id_type = 'TYP_O002'    ------------- tokony id an ny publicite ao amin ny type_offre
 );
@@ -520,16 +519,69 @@ CREATE OR REPLACE VIEW v_commentaire (
     pseudo,
     image_users,
     texte,
-    path_image,
-    id_publication
+    id_publication,
+    nb_reaction
 ) AS(
-    SELECT c.id, u.id, u.pseudo, u.path_image, c.texte, c.path_image, c.id_publication
+    SELECT c.id, u.id, u.pseudo, u.path_image, c.texte, c.id_publication, c.nb_reaction
     FROM commentaire c
     JOIN utilisateur u ON u.id = c.id_utilisateur
 );
 
+------------------------- evenement ------------------------------------
+create table event(
+    idevent serial PRIMARY KEY,
+    iduser VARCHAR(15),
+    name_event VARCHAR(30),
+    emplacement VARCHAR(30),
+    date_event DATE,
+    time_event TIME,
+    short_description text,
+    FOREIGN KEY (iduser) REFERENCES Utilisateur(id)
+);
 
-ALTER TABLE Utilisateur ADD COLUMN path_image VARCHAR(50);
+create table detailevent(
+    iddetailevent serial PRIMARY KEY,
+    idevent int,
+    nombreplace int,
+    photo text,
+    prix float,
+    description text,
+    FOREIGN KEY (idevent) REFERENCES event(idevent)
+);
+
+
+create table historique(
+    idhistorique serial PRIMARY KEY,
+    idevent int,
+    iduser VARCHAR(30),
+    name_event VARCHAR(30),
+    emplacement VARCHAR(30),
+    date_event DATE,
+    time_event TIME,
+    short_description text,
+    nombreplace int,
+    photo text,
+    prix float,
+    description text,
+    FOREIGN KEY (iduser) REFERENCES Utilisateur(id)
+);
+
+create table reservation (
+    idreservation serial PRIMARY KEY,
+    idevent int,
+    iduser VARCHAR(15),
+    nombreplace int,
+    prix float,
+    date DATE,
+    FOREIGN KEY (idevent) REFERENCES event(idevent),
+    FOREIGN KEY (iduser) REFERENCES Utilisateur(id)
+);
+
+CREATE OR REPLACE VIEW getallevent AS select e.idevent as idevent,u.id as iduser,e.name_event as name_event,e.emplacement as emplacement,e.date_event as date_event,e.time_event as time_event,e.short_description as short_description,d.photo as photo,d.prix as prix,d.nombreplace as nombreplace,d.description as description,u.prenom as prenom from event as e join detailevent as d on e.idevent=d.idevent join Utilisateur as u on u.id = e.iduser;
+
+CREATE OR REPLACE VIEW reservationlist AS select r.idevent as idevent , e.name_event as name_event , r.idreservation as numero , u.prenom as client , r.date as date , r.nombreplace as nombreplace , r.prix as prix from reservation as r 
+JOIN event as e ON e.idevent = r.idevent
+JOIN Utilisateur as u ON u.id = r.iduser;
 
 --------------------- fin -----------------------------
 

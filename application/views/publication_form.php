@@ -1,13 +1,3 @@
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/bootstrap-icons.css">
-<link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-<link rel="stylesheet" href="assets/css/styles.min.css">
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/jquery-3.3.1.slim.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="assets/js/script.min.js"></script>
-
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-xl-8 offset-xl-2" style="padding: 0px;padding-top: 10px;padding-bottom: 10px;">

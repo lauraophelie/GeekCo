@@ -8,6 +8,8 @@ class Publication extends CI_Controller {
         $this->load->model('Publication_model'); 
 		$data['interet'] = $this->Publication_model->getInteret();
 		$data['categorie'] = $this->Publication_model->getCategorie();
+		$data['personne']=$this->Login_model->getpersonbyId($_SESSION['iduser']);	
+		$this->load->view('header', $data);
         $this->load->view('publication_form', $data);
     }
 
@@ -31,16 +33,15 @@ class Publication extends CI_Controller {
 	}
 
     public function savePublication() { // insertion dans la base
-		$idusers ='UTILI001';
+		$idusers =$_SESSION['iduser'];
 		$texte = $this->input->post('pub');
 		$categorie = $this->input->post('categorie');
 		$images=$this->upload('image');
 		$datePublication = date('Y-m-d H:i:s');
-	
 		$this->load->model('Publication_model');
 		$this->Publication_model->save($idusers, $categorie,$images,$datePublication,$texte);
 
-		redirect('Actualite/index');
+		redirect('Actualite/');
 	}
 
     public function all_Publication() {

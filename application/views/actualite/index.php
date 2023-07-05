@@ -1,13 +1,3 @@
-<link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
-<link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-icons.css'); ?>">
-<link rel="stylesheet" href="<?php echo base_url('assets/fonts/fontawesome-all.min.css'); ?>">
-<link rel="stylesheet" href="<?php echo base_url('assets/css/styles.min.css'); ?>">
-<script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery-3.3.1.slim.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/popper.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery.mCustomScrollbar.concat.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/script.min.js'); ?>"></script>
-
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-xl-8 offset-xl-2" style="padding: 0px;padding-top: 10px;padding-bottom: 10px;">
@@ -31,7 +21,7 @@
                     if ($actualite[$i]['designation'] == 'publication') { ?>
                         <div class="mainbox">
                             <div style="text-align: right;">
-                                <a href="#" data-toggle="modal" data-target="#reasonModal">
+                                <a href="<?php echo base_url('Actualite/signalactualite/' . $actualite[$i]['id']) ?>" data-toggle="modal" data-target="#reasonModal">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-exclamation-octagon" style="font-size: 25px;padding: 0px;margin-left: 7px;">
                                         <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"></path>
                                         <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"></path>
@@ -66,7 +56,7 @@
                                                 <a href="#">
                                                     <i class="far fa-star" style="font-size: 25px;padding: 5px;"></i>
                                                 </a>
-                                                <a href="#" data-toggle="modal" data-target="#reasonModal">
+                                                <a href="<?php echo base_url('Actualite/signalcommentaire/' . $actualite[$i]['id'] . '/' . $commentaire[$j]['id']); ?>" data-toggle="modal" data-target="#reasonModal">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-exclamation-octagon" style="font-size: 25px;padding: 0px;margin-left: 7px;">
                                                         <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"></path>
                                                         <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"></path>
@@ -81,9 +71,9 @@
                                 <form action="<?php echo base_url('Actualite/addcommentary/' . $actualite[$i]['id']); ?>" method="get"><input class="form-control" type="text" style="width: 100%;height: auto;padding: 6px 2px;margin-bottom: 15px;border: 1px solid #2125295f;border-radius: 7px;" name="commentary"></form>
                             </div>
                         </div>
-                    <?php } else if ($actualite[$i]['designation'] == 'publicite') { ?>
+                    <?php } else if ($actualite[$i]['designation'] == 'Publicite') { ?>
                         <div class="mainbox">
-                            <div style="width: fit-content;height: fit-content;margin: auto;margin-top: -40px;">
+                            <div style="width: 100%;height: fit-content;margin: auto;margin-top: -40px;">
                                 <div style="height: fit-content;display: flex;width: fit-content;margin: 0;padding: 10px;margin-top: 15px;">
                                     <div style="width: 50px;"><img src="<?php echo base_url('assets/img/' . $actualite[$i]['image_users']); ?>" style="width: 100%;border-radius: 72px;"></div>
                                     <div style="width: fit-content;margin-left: 12px;">
