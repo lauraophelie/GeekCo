@@ -3,20 +3,20 @@
     class Offre_model extends CI_Model{
         
         function getLieu() {
-            $sql = "SELECT nom FROM lieu";
+            $sql = "SELECT nom_lieu FROM lieu";
             $query = $this->db->query($sql);
             $result = array();
             $i=0;
 
             foreach($query->result_array() as $row) {
-                $result[$i]['nom'] = $row['nom'];
+                $result[$i]['nom_lieu'] = $row['nom_lieu'];
                 $i++;
             }
             return $result;
         }
 
         function getLieuIdByName($Lieu) {
-            $sql = "SELECT id FROM lieu WHERE nom = ?";
+            $sql = "SELECT id FROM lieu WHERE nom_lieu = ?";
             $query = $this->db->query($sql, array($Lieu));
             $row = $query->row();
         
@@ -28,20 +28,20 @@
         }
 
         function getType() {
-            $sql="SELECT nom FROM TypeOffre";
+            $sql="SELECT designation FROM Type_Offre";
             $query = $this->db->query($sql);
             $result = array();
             $i=0;
 
             foreach($query->result_array() as $row) {
-                $result[$i]['nom'] = $row['nom'];
+                $result[$i]['designation'] = $row['designation'];
                 $i++;
             }
             return $result;
         }
 
         function getTypeIdByName($typeName) {
-            $sql = "SELECT id FROM TypeOffre WHERE nom = ?";
+            $sql = "SELECT id FROM Type_Offre WHERE designation = ?";
             $query = $this->db->query($sql, array($typeName));
             $row = $query->row();
         
@@ -57,12 +57,12 @@
             $idType = $this->getTypeIdByName($type);
         
             $data = array(
-                'idusers' => $idusers,
+                'id_utilisateur' => $idusers,
+                'id_type' => $idType,
+                'date_publication' => $datePublication,
+                'fin_validite' => $datefin,
                 'texte' => $texte,
-                'datepublication' => $datePublication,
-                'datedefinvalidite' => $datefin,
-                'idlieu' => $idLieu,
-                'idtypeoffre' => $idType
+                'id_lieu' => $idLieu
             );
             
             $this->db->insert('offre', $data);
