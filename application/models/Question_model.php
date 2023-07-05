@@ -48,7 +48,7 @@
             
             // supprimer les réponses une à une
             foreach($reponses as $reponse){
-                Reponse_model -> removeReponse($reponse['id']);
+                $this->Reponse_model -> removeReponse($reponse['id']);
             }
             // supprimer la question
             $sql = 'DELETE FROM Question WHERE id = ?';

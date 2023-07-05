@@ -15,11 +15,11 @@ class Forum extends CI_Controller {
         $this->load->view('insert_question', $data);
         $this->load->view('footer');
     }
-    public function insertQuest($texte, $id_categorie){
+    public function insertQuest($texte, $id_categorie) {
         $this->load->model('Question_model');
         $id_user = $this->session->id_user;
-        $insert = Question_model -> saveQuestion($id_user,$texte,$id_categorie);
-        if($insert){
+        $insert = $this->Question_model->saveQuestion($id_user, $texte, $id_categorie);
+        if ($insert) {
             redirect(site_url('forum'));
         }
     }
@@ -28,10 +28,10 @@ class Forum extends CI_Controller {
         $this->load->model('Reponse_model');
     }
 
-    public function forum($id_question){
-        $this->load->model('Question_model');
-        $question = Question_model -> findQuestionById($id_question);
-        $reponses = Question_model -> getAllResponse($id_question);
+    public function question($id_question){
+        $this-> load ->model('Question_model');
+        $question = $this -> Question_model -> findQuestionById($id_question);
+        $reponses = $this -> Question_model -> getAllResponse($id_question);
     
     }
 }

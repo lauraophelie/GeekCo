@@ -28,12 +28,11 @@
             </div>
             <div class="nav-menu">
                 <ul>
+
                     <li><a href="<?php echo site_url('Actualite/'); ?>">Actualite</a></li>
                     <li><a href="<?php echo site_url('Publication/'); ?>">Publier</a></li>
                     <li><a href="<?php echo site_url('Offre/'); ?>">Offre</a></li>
-                    <li><a href="#">Forum</a></li>
-                    <li><a href="#">Projet</a></li>
-                    <li><a href="#">Groupe</a></li>
+                  <li><a href="<?php site_url("forum") ?>">Forum</a>
                     <li><a href="<?php echo base_url('Event/events'); ?>">Liste des Evenements</a></li>
                     <li><a href="<?php echo base_url('Event/addevent'); ?>">Ajouter un Evenements</a></li>
                     <li><a href="<?php echo base_url('Login/logout'); ?>">Deconnexion</a></li>
