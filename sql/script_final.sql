@@ -583,10 +583,6 @@ CREATE OR REPLACE VIEW reservationlist AS select r.idevent as idevent , e.name_e
 JOIN event as e ON e.idevent = r.idevent
 JOIN Utilisateur as u ON u.id = r.iduser;
 
---------------------- fin -----------------------------
-
-CREATE OR REPLACE VIEW v_historique as SELECT historique.*, name_event, emplacement,date_event,time_event,short_description from historique join event on historique.idevent = event.idevent;
-
 --------------------- Chat ----------------------------
 
 CREATE TABLE Chat_Projet(
