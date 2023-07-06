@@ -25,16 +25,18 @@ VALUES
 
 INSERT INTO Publication (id_utilisateur, path_image, date_publication, texte, nb_reaction)
 VALUES 
-    ('UTILI001', 'portrait.webp', '2023-06-30 10:00:00', 'Nouvelle publication', 0),
+    ('UTILI004', 'portrait.webp', '2023-06-30 10:00:00', 'Nouvelle publication', 0),
     ('UTILI002', 'portrait.webp', '2023-07-01 09:30:00', 'Publication intéressante', 0),
     ('UTILI002', 'portrait.webp', '2023-07-02 14:15:00', 'Partage d information', 0),
-    ('UTILI001', 'portrait.webp', '2023-07-03 11:45:00', 'Publication importante', 0),
+    ('UTILI004', 'portrait.webp', '2023-07-03 11:45:00', 'Publication importante', 0),
     ('UTILI003', 'portrait.webp', '2023-07-04 16:20:00', 'Nouvelles mises à jour', 0);
 
 INSERT INTO Commentaire (id_publication, id_utilisateur, texte, nb_reaction)
 VALUES 
     ('PUBLI001', 'UTILI002', 'Très intéressant!', 0),
     ('PUBLI001', 'UTILI003', 'Merci pour le partage', 0),
-    ('PUBLI002', 'UTILI001', 'Je suis d accord avec toi', 0),
+    ('PUBLI002', 'UTILI004', 'Je suis d accord avec toi', 0),
     ('PUBLI003', 'UTILI002', 'Super nouvelle!', 0),
     ('PUBLI005', 'UTILI003', 'J ai hâte de voir ça!', 0);
+
+alter table utilisateur alter column date_insertion set default now();

@@ -1,14 +1,15 @@
 <?php 
     if(! defined('BASEPATH')) exit('No direct script access allowed');
     class Question_model extends CI_Model{
-        public function saveQuestion($iduser, $texte, $id_categorie) {
+        public function saveQuestion($iduser, $texte, $id_categorie, $image) {
             $date = new DateTime();
             $time = $date -> format('Y-m-d H:i:s');
             $data = array(
                 'id_user' => $iduser,
                 'texte' => $texte,
                 'id_categorie' => $id_categorie,
-                'date_publication' => $time
+                'date_publication' => $time,
+                'screenshoot' => $image
             );
             $this->db->insert('Question', $data);
             if ($this->db->affected_rows() > 0) {
@@ -26,9 +27,23 @@
             return $result;
         }
 
+        public function getLastQuestions(){
+            $sql = "SELECT * FROM Question ORDER BY date_publication DESC LIMIT 5";
+            $query = $this->db->query($sql);
+            $result = $query->row_array();
+            return $result;
+        }
+
         public function findQuestionById($id_question){
             $sql = "SELECT * FROM Question WHERE id = ?";
             $query = $this->db->query($sql, array($id_question));
+            $result = $query->row_array();
+            return $result;
+        }
+
+        public function findAllQuestion(){
+            $sql = "SELECT * FROM Question order by date_publication LIMIT ";
+            $query = $this->db->query($sql);
             $result = $query->row_array();
             return $result;
         }

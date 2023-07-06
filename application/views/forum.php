@@ -1,4 +1,4 @@
-<div class="container">
+<?php foreach($questions as $question){ ?><div class="container">
     <div class="row">
         <div class="col-md-12 col-xl-8 offset-xl-2" style="padding: 0px;padding-top: 10px;padding-bottom: 10px;">
             <div style="padding: 0px;padding-top: 75px;width: 100%;">
@@ -53,7 +53,7 @@
         </div>
     </div>
 </div>
-
+<?php } ?>
 
 <!-- Fenêtre contextuelle pour les raisons du signalement -->
 <div class="modal fade" id="reasonModal" tabindex="-1" role="dialog" aria-labelledby="reasonModalLabel" aria-hidden="true">
