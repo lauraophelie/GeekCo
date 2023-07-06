@@ -2,22 +2,18 @@
     <div class="row">
         <div class="col-md-12 col-xl-8 offset-xl-2" style="padding: 0px;padding-top: 10px;padding-bottom: 10px;">
             <div style="padding: 0px;padding-top: 75px;width: 100%;">
-                <div class="mainbox">
-                    <div style="width: 100%;height: fit-content;margin: auto;">
-                        <div style="height: fit-content;display: flex;width: 100%;margin: auto;padding: 10px;margin-top: 15px;">
-                            <div style="width: 50px;"><img src="assets/img/person_1.jpg" style="width: 100%;border-radius: 72px;"></div>
-                            <div style="width: fit-content;margin-left: 12px;">
-                                <h6>Username</h6>
-                            </div>
-                        </div>
-                        <div style="height: fit-content;"></div>
-                    </div>
-                    <div style="width: fit-content;height: auto;margin: auto;"></div>
-                    <div style="width: 100%;height: fit-content;margin: auto;margin-top: 10px;">
-                        <h6 style="width: fit-content;">Qu'est ce qui ne vas pas?</h6>
-                        <form>
-                            <textarea class="form-control"></textarea>
-                            <div style="text-align: right;margin-top: 15px;"><button class="btn btn-primary" type="submit" style="width: 125px;height: 40px;border-radius: 15px;">Publier</button></div>
+                <div id="insertion_publication" class="mainbox">
+                    <div style="width: 100%;margin: auto;">
+                        <h4>Poser vos questions</h4>
+                        <form action="<?php echo site_url("Foum/insertQuestion"); ?>" method="post" enctype="multipart/form-data">
+                            <div class="form-group"><select name="id_categorie" class="form-control" id="selectTypePublication-1">
+                                <?php foreach($categorie as $categories) { ?>
+                                    <option value="<?php echo $categories['id']; ?>"><?php echo $categories['designation']; ?></option>
+                                <?php } ?>
+                                </select></div>
+                            <div class="form-group"><textarea name="texte" class="form-control" id="description-2" rows="5" placeholder="Ecrivez quelque chose"></textarea></div>
+                            <div class="form-group"><input type="file" class="form-control-file" id="inputFile-1" name="screeshoot"></div>
+                            <div style="text-align: right;"><button class="btn btn-primary" type="submit" style="width: 125px;height: 40px;border-radius: 15px;">Publier</button></div>
                         </form>
                     </div>
                 </div>
